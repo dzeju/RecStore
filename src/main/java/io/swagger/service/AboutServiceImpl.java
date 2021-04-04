@@ -15,7 +15,6 @@ public class AboutServiceImpl implements AboutService {
 	@Autowired
 	private AboutRepository aboutRepository;
 	
-	
 	@Override
 	public About getAbout() {
 		Optional<About> a = aboutRepository.findById((long) 0);
@@ -25,8 +24,6 @@ public class AboutServiceImpl implements AboutService {
 
 	@Override
 	public About setAbout(About about) {
-//		aboutRepository.updateAbout(about.getContent());
-//		return about;
 		return aboutRepository.save(about);
 	}
 

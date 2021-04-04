@@ -55,7 +55,7 @@ public interface RecyclingApi {
     @RequestMapping(value = "/recycling",
         consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<Void> updateRecycling(@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody Recycling body);
+    ResponseEntity<Recycling> updateRecycling(@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody Recycling body);
 
 }
 
