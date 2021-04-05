@@ -8,6 +8,6 @@ import io.swagger.model.About;
 
 public interface AboutRepository extends JpaRepository<About,Long> {
 	@Modifying
-	@Query("update About s set s.content = ?1")
+	@Query("update About s set s.content = ?1 where s.id = 0")
 	void updateAbout(String content);
 }

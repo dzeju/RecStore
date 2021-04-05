@@ -34,7 +34,7 @@ import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-04-04T16:16:25.467Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-04-04T21:37:47.555Z[GMT]")
 @Validated
 public interface OffersApi {
 
@@ -49,6 +49,21 @@ public interface OffersApi {
         consumes = { "aplication/json" }, 
         method = RequestMethod.POST)
     ResponseEntity<Void> addOffer(@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody Offer body);
+
+
+    @Operation(summary = "delete a offer by id", description = "", security = {
+        @SecurityRequirement(name = "recstore_auth", scopes = {
+            "write:content"        })    }, tags={ "offers" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = Offer.class))),
+        
+        @ApiResponse(responseCode = "400", description = "Invalid id supplied"),
+        
+        @ApiResponse(responseCode = "404", description = "Offer not found") })
+    @RequestMapping(value = "/offers/{id}",
+        produces = { "application/json" }, 
+        method = RequestMethod.DELETE)
+    ResponseEntity<Offer> deleteOfferById(@Parameter(in = ParameterIn.PATH, description = "Numeric ID of the offer to delete.", required=true, schema=@Schema()) @PathVariable("id") Long id);
 
 
     @Operation(summary = "Get information about buying", description = "", tags={ "offers" })

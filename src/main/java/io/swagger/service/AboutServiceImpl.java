@@ -12,6 +12,7 @@ import io.swagger.model.About;
 @Service
 @Transactional
 public class AboutServiceImpl implements AboutService {
+	
 	@Autowired
 	private AboutRepository aboutRepository;
 	

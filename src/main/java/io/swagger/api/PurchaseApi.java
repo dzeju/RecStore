@@ -33,7 +33,7 @@ import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-04-04T16:16:25.467Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-04-04T21:37:47.555Z[GMT]")
 @Validated
 public interface PurchaseApi {
 
@@ -45,9 +45,24 @@ public interface PurchaseApi {
         
         @ApiResponse(responseCode = "401", description = "Unauthorized") })
     @RequestMapping(value = "/purchase",
-        consumes = { "aplication/json" }, 
+        consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<Void> addPurchase(@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody PurOffer body);
+    ResponseEntity<PurOffer> addPurchase(@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody PurOffer body);
+
+
+    @Operation(summary = "delete a purchase option by id", description = "", security = {
+        @SecurityRequirement(name = "recstore_auth", scopes = {
+            "write:content"        })    }, tags={ "purchase" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = PurOffer.class))),
+        
+        @ApiResponse(responseCode = "400", description = "Invalid id supplied"),
+        
+        @ApiResponse(responseCode = "404", description = "Offer not found") })
+    @RequestMapping(value = "/purchase/{id}",
+        produces = { "application/json" }, 
+        method = RequestMethod.DELETE)
+    ResponseEntity<PurOffer> deletePurchaseById(@Parameter(in = ParameterIn.PATH, description = "Numeric ID of the offer to delete.", required=true, schema=@Schema()) @PathVariable("id") Long id);
 
 
     @Operation(summary = "Edit an option", description = "", security = {
@@ -60,9 +75,9 @@ public interface PurchaseApi {
         
         @ApiResponse(responseCode = "404", description = "Offer not found") })
     @RequestMapping(value = "/purchase/{id}",
-        consumes = { "aplication/json" }, 
+        consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<Void> editOptionByPath(@Parameter(in = ParameterIn.PATH, description = "", required=true, schema=@Schema()) @PathVariable("id") Long id, @Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody PurOffer body);
+    ResponseEntity<PurOffer> editOptionByPath(@Parameter(in = ParameterIn.PATH, description = "", required=true, schema=@Schema()) @PathVariable("id") Long id, @Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody PurOffer body);
 
 
     @Operation(summary = "Get option by path", description = "", tags={ "purchase" })

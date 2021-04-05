@@ -38,6 +38,7 @@ import java.util.Map;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-04-04T16:16:25.467Z[GMT]")
 @RestController
 public class AboutApiController implements AboutApi {
+	
 	@Autowired
 	private AboutService aboutService;
 

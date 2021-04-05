@@ -2,11 +2,19 @@ package io.swagger.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.validation.annotation.Validated;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -14,10 +22,15 @@ import javax.validation.constraints.*;
  * PurOffer
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-04-04T16:16:25.467Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-04-04T21:37:47.555Z[GMT]")
 
-
+@Entity
+@Table(name = "puroffers")
+@JacksonXmlRootElement(localName = "PurOffer")
+@JsonRootName("PurOffer")
 public class PurOffer   {
+	
+  @Id
   @JsonProperty("id")
   private Long id = null;
 
@@ -27,9 +40,10 @@ public class PurOffer   {
   @JsonProperty("description")
   private String description = null;
 
+
+//  @OneToMany(targetEntity=PurOffer.class, fetch=FetchType.EAGER)
   @JsonProperty("photoUrls")
-  @Valid
-  private List<String> photoUrls = null;
+  private String photoUrls = null;
 
   public PurOffer id(Long id) {
     this.id = id;
@@ -88,18 +102,18 @@ public class PurOffer   {
     this.description = description;
   }
 
-  public PurOffer photoUrls(List<String> photoUrls) {
+  public PurOffer photoUrls(String photoUrls) {
     this.photoUrls = photoUrls;
     return this;
   }
 
-  public PurOffer addPhotoUrlsItem(String photoUrlsItem) {
-    if (this.photoUrls == null) {
-      this.photoUrls = new ArrayList<String>();
-    }
-    this.photoUrls.add(photoUrlsItem);
-    return this;
-  }
+//  public PurOffer addPhotoUrlsItem(String photoUrlsItem) {
+//    if (this.photoUrls == null) {
+//      this.photoUrls = new ArrayList<String>();
+//    }
+//    this.photoUrls.add(photoUrlsItem);
+//    return this;
+//  }
 
   /**
    * Get photoUrls
@@ -107,11 +121,11 @@ public class PurOffer   {
    **/
   @Schema(description = "")
   
-    public List<String> getPhotoUrls() {
+    public String getPhotoUrls() {
     return photoUrls;
   }
 
-  public void setPhotoUrls(List<String> photoUrls) {
+  public void setPhotoUrls(String photoUrls) {
     this.photoUrls = photoUrls;
   }
 
