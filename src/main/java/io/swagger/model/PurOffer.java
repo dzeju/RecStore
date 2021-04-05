@@ -40,7 +40,6 @@ public class PurOffer   {
   @JsonProperty("description")
   private String description = null;
 
-
 //  @OneToMany(targetEntity=PurOffer.class, fetch=FetchType.EAGER)
   @JsonProperty("photoUrls")
   private String photoUrls = null;

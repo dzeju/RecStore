@@ -3,6 +3,8 @@ package io.swagger.api;
 import io.swagger.model.Offer;
 import io.swagger.model.Offers;
 import io.swagger.model.PurInfo;
+import io.swagger.service.OfferService;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -15,6 +17,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,6 +40,9 @@ import java.util.Map;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-04-04T21:37:47.555Z[GMT]")
 @RestController
 public class OffersApiController implements OffersApi {
+	
+	@Autowired
+	private OfferService offerService;
 
     private static final Logger log = LoggerFactory.getLogger(OffersApiController.class);
 
@@ -50,20 +56,24 @@ public class OffersApiController implements OffersApi {
         this.request = request;
     }
 
-    public ResponseEntity<Void> addOffer(@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody Offer body) {
+    public ResponseEntity<Offer> addOffer(@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody Offer body) {
         String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+        if (accept != null) {
+        	return ResponseEntity.ok(offerService.addOffer(body));
+        }
+        return new ResponseEntity<Offer>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     public ResponseEntity<Offer> deleteOfferById(@Parameter(in = ParameterIn.PATH, description = "Numeric ID of the offer to delete.", required=true, schema=@Schema()) @PathVariable("id") Long id) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<Offer>(objectMapper.readValue("{\n  \"photoUrls\" : [ \"photoUrls\", \"photoUrls\" ],\n  \"name\" : \"Plastic\",\n  \"description\" : \"Plastic plastic\",\n  \"id\" : 0\n}", Offer.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<Offer>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+//            try {
+//                return new ResponseEntity<Offer>(objectMapper.readValue("{\n  \"photoUrls\" : [ \"photoUrls\", \"photoUrls\" ],\n  \"name\" : \"Plastic\",\n  \"description\" : \"Plastic plastic\",\n  \"id\" : 0\n}", Offer.class), HttpStatus.NOT_IMPLEMENTED);
+//            } catch (IOException e) {
+//                log.error("Couldn't serialize response for content type application/json", e);
+//                return new ResponseEntity<Offer>(HttpStatus.INTERNAL_SERVER_ERROR);
+//            }
+        	return ResponseEntity.ok(offerService.deleteOfferById(id));
         }
 
         return new ResponseEntity<Offer>(HttpStatus.NOT_IMPLEMENTED);
@@ -72,12 +82,13 @@ public class OffersApiController implements OffersApi {
     public ResponseEntity<PurInfo> getBuyingInfo() {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<PurInfo>(objectMapper.readValue("{\n  \"content\" : \"Give us ur money!\"\n}", PurInfo.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<PurInfo>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+//            try {
+//                return new ResponseEntity<PurInfo>(objectMapper.readValue("{\n  \"content\" : \"Give us ur money!\"\n}", PurInfo.class), HttpStatus.NOT_IMPLEMENTED);
+//            } catch (IOException e) {
+//                log.error("Couldn't serialize response for content type application/json", e);
+//                return new ResponseEntity<PurInfo>(HttpStatus.INTERNAL_SERVER_ERROR);
+//            }
+        	return ResponseEntity.ok(offerService.getPurInfo());
         }
 
         return new ResponseEntity<PurInfo>(HttpStatus.NOT_IMPLEMENTED);
@@ -86,12 +97,13 @@ public class OffersApiController implements OffersApi {
     public ResponseEntity<Offer> getOfferByPath(@Parameter(in = ParameterIn.PATH, description = "", required=true, schema=@Schema()) @PathVariable("id") Long id) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<Offer>(objectMapper.readValue("{\n  \"photoUrls\" : [ \"photoUrls\", \"photoUrls\" ],\n  \"name\" : \"Plastic\",\n  \"description\" : \"Plastic plastic\",\n  \"id\" : 0\n}", Offer.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<Offer>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+//            try {
+//                return new ResponseEntity<Offer>(objectMapper.readValue("{\n  \"photoUrls\" : [ \"photoUrls\", \"photoUrls\" ],\n  \"name\" : \"Plastic\",\n  \"description\" : \"Plastic plastic\",\n  \"id\" : 0\n}", Offer.class), HttpStatus.NOT_IMPLEMENTED);
+//            } catch (IOException e) {
+//                log.error("Couldn't serialize response for content type application/json", e);
+//                return new ResponseEntity<Offer>(HttpStatus.INTERNAL_SERVER_ERROR);
+//            }
+        	return ResponseEntity.ok(offerService.findOfferById(id));
         }
 
         return new ResponseEntity<Offer>(HttpStatus.NOT_IMPLEMENTED);
@@ -100,25 +112,31 @@ public class OffersApiController implements OffersApi {
     public ResponseEntity<Offers> getOffers(@Parameter(in = ParameterIn.QUERY, description = "Offset list of offers" ,schema=@Schema()) @Valid @RequestParam(value = "offset", required = false) Integer offset,@Parameter(in = ParameterIn.QUERY, description = "Limit list of offers" ,schema=@Schema()) @Valid @RequestParam(value = "limit", required = false) Integer limit) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<Offers>(objectMapper.readValue("[ {\n  \"photoUrls\" : [ \"photoUrls\", \"photoUrls\" ],\n  \"name\" : \"Plastic\",\n  \"description\" : \"Plastic plastic\",\n  \"id\" : 0\n}, {\n  \"photoUrls\" : [ \"photoUrls\", \"photoUrls\" ],\n  \"name\" : \"Plastic\",\n  \"description\" : \"Plastic plastic\",\n  \"id\" : 0\n} ]", Offers.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<Offers>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+//            try {
+//                return new ResponseEntity<Offers>(objectMapper.readValue("[ {\n  \"photoUrls\" : [ \"photoUrls\", \"photoUrls\" ],\n  \"name\" : \"Plastic\",\n  \"description\" : \"Plastic plastic\",\n  \"id\" : 0\n}, {\n  \"photoUrls\" : [ \"photoUrls\", \"photoUrls\" ],\n  \"name\" : \"Plastic\",\n  \"description\" : \"Plastic plastic\",\n  \"id\" : 0\n} ]", Offers.class), HttpStatus.NOT_IMPLEMENTED);
+//            } catch (IOException e) {
+//                log.error("Couldn't serialize response for content type application/json", e);
+//                return new ResponseEntity<Offers>(HttpStatus.INTERNAL_SERVER_ERROR);
+//            }
+        	Offers oof = new Offers();
+        	oof.setOffers(offerService.findAllOffers());
+        	return ResponseEntity.ok(oof);
         }
 
         return new ResponseEntity<Offers>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<Void> updateBuyingInfo(@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody PurInfo body) {
+    public ResponseEntity<PurInfo> updateBuyingInfo(@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody PurInfo body) {
         String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+        return ResponseEntity.ok(offerService.setPurInfo(body));
     }
 
-    public ResponseEntity<Void> updateOfferByPath(@Parameter(in = ParameterIn.PATH, description = "", required=true, schema=@Schema()) @PathVariable("id") Long id,@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody Offer body) {
+    public ResponseEntity<Offer> updateOfferByPath(@Parameter(in = ParameterIn.PATH, description = "", required=true, schema=@Schema()) @PathVariable("id") Long id,@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody Offer body) {
         String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+        if (accept != null) {
+        	return ResponseEntity.ok(offerService.updateOfferById(body, id));
+        }
+        return new ResponseEntity<Offer>(HttpStatus.NOT_IMPLEMENTED);
     }
 
 }

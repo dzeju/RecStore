@@ -2,9 +2,19 @@ package io.swagger.model;
 
 import java.util.Objects;
 import io.swagger.model.Offer;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -14,9 +24,26 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-04-04T21:37:47.555Z[GMT]")
 
+@JsonRootName("Offers")
+@JacksonXmlRootElement(localName = "Offers")
+public class Offers extends ArrayList<Offer> implements Serializable  {
 
-public class Offers extends ArrayList<Offer>  {
-
+	private static final long serialVersionUID = 1L;
+	
+	@JsonProperty("Offer")
+	@JacksonXmlProperty(localName = "Offer")
+	@JacksonXmlElementWrapper(useWrapping = false)
+	protected List<Offer> offers = null;
+	
+	@JsonValue
+	public List<Offer> getOffers() {
+		return offers;
+	}
+	
+	public void setOffers(List<Offer> offers) {
+		this.offers = offers;
+	}
+	
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {

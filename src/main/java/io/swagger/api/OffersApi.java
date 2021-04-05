@@ -46,9 +46,9 @@ public interface OffersApi {
         
         @ApiResponse(responseCode = "401", description = "Unauthorized") })
     @RequestMapping(value = "/offers",
-        consumes = { "aplication/json" }, 
+        consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<Void> addOffer(@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody Offer body);
+    ResponseEntity<Offer> addOffer(@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody Offer body);
 
 
     @Operation(summary = "delete a offer by id", description = "", security = {
@@ -107,7 +107,7 @@ public interface OffersApi {
     @RequestMapping(value = "/offers/info",
         consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<Void> updateBuyingInfo(@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody PurInfo body);
+    ResponseEntity<PurInfo> updateBuyingInfo(@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody PurInfo body);
 
 
     @Operation(summary = "Edit an offer", description = "", security = {
@@ -120,9 +120,9 @@ public interface OffersApi {
         
         @ApiResponse(responseCode = "404", description = "Offer not found") })
     @RequestMapping(value = "/offers/{id}",
-        consumes = { "aplication/json" }, 
+        consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<Void> updateOfferByPath(@Parameter(in = ParameterIn.PATH, description = "", required=true, schema=@Schema()) @PathVariable("id") Long id, @Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody Offer body);
+    ResponseEntity<Offer> updateOfferByPath(@Parameter(in = ParameterIn.PATH, description = "", required=true, schema=@Schema()) @PathVariable("id") Long id, @Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody Offer body);
 
 }
 
