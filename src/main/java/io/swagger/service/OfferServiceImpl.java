@@ -8,7 +8,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.swagger.model.About;
 import io.swagger.model.Offer;
 import io.swagger.model.PurInfo;
 

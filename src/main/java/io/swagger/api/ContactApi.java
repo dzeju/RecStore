@@ -44,7 +44,7 @@ public interface ContactApi {
     @RequestMapping(value = "/contact",
         consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<Void> sendContactForm(@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody Body body);
+    ResponseEntity<Body> sendContactForm(@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody Body body);
 
 }
 

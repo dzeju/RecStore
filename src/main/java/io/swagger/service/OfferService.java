@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.cache.annotation.Cacheable;
 
-import io.swagger.model.About;
 import io.swagger.model.Offer;
 import io.swagger.model.PurInfo;
 

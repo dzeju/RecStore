@@ -21,7 +21,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,6 +42,7 @@ import java.util.Map;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-04-04T21:37:47.555Z[GMT]")
 @RestController
+@CrossOrigin(origins="http://localhost:4200")
 public class PurchaseApiController implements PurchaseApi {
 
 	@Autowired
@@ -55,6 +60,7 @@ public class PurchaseApiController implements PurchaseApi {
         this.request = request;
     }
     
+    @PostMapping("/puroffers")
     public ResponseEntity<PurOffer> addPurchase(
     		@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody PurOffer body) {
         String accept = request.getHeader("Accept");
@@ -64,6 +70,7 @@ public class PurchaseApiController implements PurchaseApi {
         return new ResponseEntity<PurOffer>(HttpStatus.NOT_IMPLEMENTED);
     }
 
+    @DeleteMapping("/puroffers/{id}")
     public ResponseEntity<PurOffer> deletePurchaseById(
     		@Parameter(in = ParameterIn.PATH, description = "Numeric ID of the offer to delete.", required=true, schema=@Schema()) @PathVariable("id") Long id) {
         String accept = request.getHeader("Accept");
@@ -80,6 +87,7 @@ public class PurchaseApiController implements PurchaseApi {
         return new ResponseEntity<PurOffer>(HttpStatus.NOT_IMPLEMENTED);
     }
 
+    @PostMapping("/puroffers/{id}")
     public ResponseEntity<PurOffer> editOptionByPath(@Parameter(in = ParameterIn.PATH, description = "", required=true, schema=@Schema()) @PathVariable("id") Long id,@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody PurOffer body) {
         String accept = request.getHeader("Accept");
         if (accept != null) {
@@ -88,6 +96,7 @@ public class PurchaseApiController implements PurchaseApi {
         return new ResponseEntity<PurOffer>(HttpStatus.NOT_IMPLEMENTED);
     }
 
+    @GetMapping("/puroffers/{id}")
     public ResponseEntity<PurOffer> getOptionByPath(@Parameter(in = ParameterIn.PATH, description = "", required=true, schema=@Schema()) @PathVariable("id") Long id) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
@@ -103,6 +112,7 @@ public class PurchaseApiController implements PurchaseApi {
         return new ResponseEntity<PurOffer>(HttpStatus.NOT_IMPLEMENTED);
     }
 
+    @GetMapping("/puroffers")
     public ResponseEntity<PurOffers> getPurchaseOptions(@Parameter(in = ParameterIn.QUERY, description = "Offset list of offers" ,schema=@Schema()) @Valid @RequestParam(value = "offset", required = false) Integer offset,@Parameter(in = ParameterIn.QUERY, description = "Limit list of offers" ,schema=@Schema()) @Valid @RequestParam(value = "limit", required = false) Integer limit) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
